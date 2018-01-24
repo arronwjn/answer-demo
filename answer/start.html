@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/swiper-3.4.2.min.css">
+    <script language="JavaScript"> if (document.all) { window.resizeTo(screen.availWidth, screen.availHeight); } </script>
+    <script type="text/javascript">        !function (a) { function b() { var b = a.document, c = b.documentElement, d = c.getBoundingClientRect().width; document.documentElement.style.fontSize = 20 * (d / 375) + "px" } window.addEventListener("DOMContentLoaded", function () { b() }, !1), window.addEventListener("resize", function () { b() }), b() }(window);    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Document</title>
+    <style lang="css">
+    body,
+    html {
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+    }
+    .cantain{
+        width:100%;
+        height:100%;
+    }
+    .cantainer {
+        width: 100%;
+        height: 100%;
+        background: url('./images/bg@1x.png') center;
+        background-repeat: no-repeat;
+        -webkit-background-size: 100% 100%;
+        background-size: cover;
+        position: relative;
+    }
+    .answer_start {
+        width:10.15rem;
+        height: 3rem;
+        position: absolute;
+        bottom: 2.275rem;
+        left: 4.65rem;
+    }
+    .cantainer-wrapper{
+        width:14.175rem;
+        height:25.825rem;
+    }
+    .dati{
+        width:13.375rem;
+        height:3.35rem;
+        position: absolute;
+        bottom:24.55rem;
+        left:3.375rem;
+    }
+    .lingquan{
+        width:13.05rem;
+        height:2.4rem;
+        position: absolute;
+        bottom:20.225rem;
+        left:3.35rem;
+    }
+    .yexiaocha{
+        width:14.2rem;
+        height:11.4rem;
+        position: absolute;
+        bottom: 6.675rem;
+        left:2.675rem;
+    }
+    </style>
+</head>
+<body>
+    <div class="cantain" id="app">
+        <div class="cantainer">
+            <div class="cantainer-wrapper">
+                <img src="./images/dati.png" alt="" class="dati">
+                <img src="./images/lingquan.png" alt="" class="lingquan">
+                <img src="./images/yexiaocha.png" alt="" class="yexiaocha">
+                <img class="answer_start" id="answer_start" @click="answerStart()" :class="{interactive:animate==1}" src="./images/start@1x.png"
+                />
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        methods:{
+            answerStart(){
+                window.location.href="./index.html"
+            }
+        }
+    })
+</script>
+</html>

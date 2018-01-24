@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>拾鼎答题活动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- <link rel="stylesheet" href="./answer.css"> -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/swiper-3.4.2.min.css">
+    <script language="JavaScript"> if (document.all) { window.resizeTo(screen.availWidth, screen.availHeight); } </script>
+    <script type="text/javascript">        !function (a) { function b() { var b = a.document, c = b.documentElement, d = c.getBoundingClientRect().width; document.documentElement.style.fontSize = 20 * (d / 375) + "px" } window.addEventListener("DOMContentLoaded", function () { b() }, !1), window.addEventListener("resize", function () { b() }), b() }(window);    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<style>
+    body,
+    html {
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }  
+    .cantain {
+        width: 100%;
+        min-height: 100%;
+        background: url('./images/dati_bg.png') center;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: cover;
+        position: relative;
+        
+    }
+    :-webkit-.cantain:before{content: ""; display: block; padding-top: 100%;}
+    .answer_logo {
+        width: 2.725rem;
+        height: 2.725rem;
+        position: absolute;
+        top: 1rem;
+        right: 0.75rem;
+    }
+
+    .board {
+        width: 15.65rem;
+        height: 5.6rem;
+        background: url('./images/dakuang.png') center;
+        background-repeat: no-repeat;
+        -webkit-background-size: 100% 100%;
+        background-size: cover;
+        position: relative;
+        /* position: absolute;
+        left: 1.425rem;
+        top:6.85rem;
+        bottom: 24.55rem; */
+        margin: 0 auto;
+        margin-top:3.075rem;
+    }
+
+    .answer_num {
+        width: 3.175rem;
+        height: 1.175rem;
+        line-height: 1.175rem;
+        /* background: url('/public/answer/images/answer_num.png') center; */
+        background-repeat: no-repeat;
+        -webkit-background-size: 100% 100%;
+        background-size: cover;
+        position: absolute;
+        top: -0.375rem;
+        left: 5.325rem;
+        font-size: 0.725rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .select {
+        position: absolute;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        top: 1.4rem;
+        left: 0;
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 0.9rem;
+        color: #865a37;
+    }
+
+    .answer {
+        width: 15.675rem;
+        margin: 0 auto;
+        margin-top:2.4rem; 
+    }
+
+    .answer_bar {
+        position: relative;
+        padding-left: 0.5rem;
+        /*width: 15.675em;*/
+        height: 2.475rem;
+        line-height: 2.475rem;
+        background-repeat: no-repeat;
+        -webkit-background-size: 100% 100%;
+        background-size: cover;
+        margin-bottom: 1.1rem;
+        position: relative;
+        font-size: 0.95rem;
+        color:#fdfffe;
+    }
+    .answer_bar_normal{
+        background: url('./images/kuang.png') center;
+    }
+    .answer_bar_error{
+        background: url('./images/hong.png') center;
+    }
+    .answer_bar_right{
+        background: url('./images/lv.png') center;
+    }
+    .answer_bar:last-child {
+        margin-bottom: 0;
+    }
+
+    .answer_button {
+        width: 13.85rem;
+        display: flex;
+        justify-content: space-around;
+        position: absolute;
+        bottom: 2.5rem;
+        /*bottom:0;*/
+        left: 2.55rem;
+        font-size: 0;
+    }
+
+    .answer_button>div {
+        width: 6.55rem;
+        height: 2.275rem;
+        line-height: 1.8rem;
+        background-repeat: no-repeat;
+        -webkit-background-size: 100% 100%;
+        background-size: cover;
+        display: inline-block;
+        font-size: 0.65rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .true_bg {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    /*2018.1.23*/
+
+    .answer_bar .right {
+        display: inline-block;
+        width: 2.625rem;
+        height: 2.25rem;
+        position: absolute;
+        right: -0.7rem;
+        top: -0.3rem;
+    }
+    .answer_bar .error{
+        display: inline-block;
+        width: 2.25rem;
+        height: 2.25rem;
+        position: absolute;
+        right: -0.7rem;
+        top: -0.3rem;
+
+    }
+    .answer_bar input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        margin: 0.3rem;
+        
+    }
+
+    #results {
+        width: 16.9rem;
+        position: absolute;
+        left: 0rem;
+        top: 2rem;
+        font-size: 1rem;
+        color: #fff;
+        text-shadow: 0 0 10px #000;
+        font-weight: bold;
+        line-height: 1.8rem;
+    }
+    /*答题准备页样式*/
+    .page {
+        width: 100%;
+        height: 100%;
+        transition: all 0.2s linear;
+        transform: translate3d(0, 0, 0);
+    }
+    .analysis{
+        width:15.15rem;
+        line-height: 1rem;
+        margin:0 auto;
+        margin-top:3.9rem;
+        padding-bottom:2.3rem;
+        transition: all 0.3s linear;
+        transform: translate3d(0, 0, 0);
+        font-size:0.8rem;
+        color:#865a37;
+    }
+    .move1-enter-active {
+        opacity: 1;
+        transform: translate3d(120%, 0, 0);
+    }
+
+    .move1-leave-active {
+        opacity: 0;
+        transform: translate3d(120%, 0, 0);
+    }
+    .analysis span{
+        display: inline-block;
+        font-size:0.975rem;
+        margin-bottom: 0.975rem;
+        font-size: 0.875rem;
+    }
+    .zuozi{
+        width: 4.575rem;
+        height:6.475rem;
+        float: right;
+    }
+    /*popup-1 2018.1.24*/
+
+    .popup{
+        width:100%;
+        height:100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background-color: rgba(0,0,0,0.4);
+    }
+    .popup-container{
+        width:15.025rem;
+        margin: 0 auto;
+        padding-top:3.725rem;
+    }
+    .guanbi{
+        text-align: right;
+        padding-bottom:5.75rem;
+    }
+    .guanbi img{
+        width: 1.35rem;
+        height: 1.35rem;
+        cursor: pointer;
+    }
+    .popup-wrapper{
+        position: relative;
+        width: 15.025rem;
+        height:14.2rem;
+    }
+    .popup-content{
+        width: 100%;
+        height:100%;
+        background: url('./images/gongxi@2x.png') center;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: cover;
+        z-index:99;
+    }
+    .rentou{
+        width:5.125rem;
+        height:5.825rem;
+        position: absolute;
+        top:-5rem;
+        left:4.95rem;
+        /* margin-left:-5.125rem; */
+        z-index: -1;
+    }
+    .popup-text{
+        text-align: center;
+        padding-top:1.25rem;
+        padding-bottom:0.825rem;
+    }
+    .popup-text img{
+        width:6.5rem;
+        height:1.975rem;
+    }
+    .popup-desc{
+        text-align: center;
+        margin-bottom: 0.775rem;
+    }
+    .popup-desc span{
+        color:#d11919;
+    }
+    .popup_button{
+        text-align: center;
+    }
+    .queren{
+        width:6.725rem;
+        height:2.4rem;
+    }
+    /*popup-2 2018.1.24*/
+    .popup-wrapper-2{
+        position: relative;
+        width:15rem;
+        height:10.8rem;
+    }
+    .popup-content-2{
+        width: 100%;
+        height:100%;
+        background: url('./images/yihan@2x.png') center;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: cover;
+        z-index:99;
+    }
+    .jixu{
+        width:6.9rem;
+        height:3rem;
+    }
+</style>
+
+<body>
+    <div class="cantain" id="app">
+        <template>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="(item,index) in answerArray" :key="index">
+                        <div class="answer_bg answer_bg1"></div>
+                        <div class="board">
+                            <span class="select">{{index+1}}.{{item.title}}</span>
+                        </div>
+                        <div class="answer">
+                            <template>
+                            <div class="answer_bar answer_bar_normal" 
+                                :class="{answer_bar_error:item.oa[0]==item.option1 && item.rightOption!=item.option1,'answer_bar_right':item.disabled && item.rightOption==item.option1}">
+                                    <img class="right" 
+                                        src="./images/right.png" 
+                                        v-show="item.disabled && item.rightOption==item.option1"/>
+                                    <img class="error" 
+                                        src="./images/error.png"  
+                                        v-show="item.oa[0]==item.option1 && item.rightOption!=item.option1"/>
+                                    <input type="radio" 
+                                        id="a1" 
+                                        :name="item.name" 
+                                        v-model="item.oa[0]" 
+                                        :value="item.option1" 
+                                        :disabled='item.disabled' 
+                                        @change.stop="nextChoice(item.option1)"/> 
+                                        A {{item.option1}}
+                                </div>
+                                <div class="answer_bar answer_bar_normal" 
+                                    :class="{answer_bar_error:item.oa[0]==item.option2 && item.rightOption!=item.option2,'answer_bar_right':item.disabled && item.rightOption==item.option2}">
+                                    <img class="right" 
+                                        src="./images/right.png" 
+                                        v-show="item.disabled && item.rightOption==item.option2"/>
+                                    <img class="error" 
+                                        src="./images/error.png"  
+                                        v-show="item.oa[0]==item.option2 && item.rightOption!=item.option2"/>
+                                    <input type="radio" 
+                                        id="b1" 
+                                        :name="item.name" 
+                                        v-model="item.oa[0]" 
+                                        :value="item.option2" 
+                                        :disabled='item.disabled' 
+                                        @change.stop="nextChoice(item.option2)"/>
+                                        B {{item.option2}}
+                                </div>
+                                <div class="answer_bar answer_bar_normal" 
+                                    :class="{answer_bar_error:item.oa[0]==item.option3 && item.rightOption!=item.option3,'answer_bar_right':item.disabled && item.rightOption==item.option3}">
+                                    <img class="right" 
+                                        src="./images/right.png" 
+                                        v-show="item.disabled && item.rightOption==item.option3"/>
+                                    <img class="error" 
+                                        src="./images/error.png"  
+                                        v-show="item.oa[0]==item.option3 && item.rightOption!=item.option3"/>
+                                    <input 
+                                        type="radio" 
+                                        id="c1" 
+                                        :name="item.name" 
+                                        v-model="item.oa[0]" 
+                                        :value="item.option3" 
+                                        :disabled='item.disabled' 
+                                        @change.stop="nextChoice(item.option3)"/>
+                                        C {{item.option3}}
+                                </div>
+                                <div class="answer_bar answer_bar_normal" 
+                                    :class="{answer_bar_error:item.oa[0]==item.option4 && item.rightOption!=item.option4,'answer_bar_right':item.disabled && item.rightOption==item.option4}" >
+                                    <img class="right" 
+                                        src="./images/right.png" 
+                                        v-show="item.disabled && item.rightOption==item.option4"/>
+                                    <img class="error" 
+                                        src="./images/error.png" 
+                                        v-show="item.oa[0]==item.option4 && item.rightOption!=item.option4"/>
+                                    <input 
+                                        type="radio" 
+                                        id="c1" 
+                                        :name="item.name" 
+                                        v-model="item.oa[0]" 
+                                        :value="item.option4" 
+                                        :disabled='item.disabled' 
+                                        @change.stop="nextChoice(item.option4)"/>
+                                        D {{item.option4}}
+                                </div>
+                            </template>
+                        </div>
+                        <img src="./images/zuozi@2x.png" alt="" class="zuozi">
+                        <template>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index==0 && analysis0===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===1 && analysis1===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===2 && analysis2===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===3 && analysis3===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===4 && analysis4===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===5 && analysis5===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===6 && analysis6===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===7 && analysis7===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===8 && analysis8===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                            <transition name="move1">
+                                <div class="analysis" v-show="index===9 && analysis9===-1">
+                                    <span>正确答案</span>
+                                    <br/> {{item.analysis}}
+                                </div>
+                            </transition>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <!--模态框start-->
+        <template>
+            <div class="popup" v-if="popup1">
+                <div class="popup-container">
+                    <div class="guanbi">
+                        <img src="./images/guanbi@2x.png" alt="" @click="cancle(1)">
+                    </div>
+                    <div class="popup-wrapper">
+                        <img src="./images/rentou@2x.png" alt="" class="rentou">
+                        <div class="popup-content">
+                            <div class="popup-text">
+                                <img src="./images/text@2x.png" alt="">
+                            </div>
+                            <p class="popup-desc">您答对<span>{{calculate}}</span>道题 获得一张优惠券</p>
+                            <div>
+                                <img src="" alt="">
+                            </div>
+                            <div class="popup_button">
+                                <img src="./images/queren@2x.png" alt="" class="queren" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup" v-if="popup2">
+                <div class="popup-container">
+                    <div class="guanbi">
+                        <img src="./images/guanbi@2x.png" alt="" @click="cancle(2)">
+                    </div>
+                    <div class="popup-wrapper-2">
+                        <img src="./images/rentou-2@2x.png" alt="" class="rentou">
+                        <div class="popup-content-2">
+                            <div class="popup-text">
+                                <img src="./images/text-2@2x.png" alt="">
+                            </div>
+                            <p class="popup-desc">您答对<span>{{calculate}}</span>道题</p>
+                            <p class="popup-desc">发挥不好，优惠券擦肩而过</p>
+                            <div class="popup_button">
+                                <img src="./images/jixu@2x.png" alt="" class="jixu" @click="carry()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script src="./js/vue-resource.js"></script>
+<script src="./js/api.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/swiper-3.4.2.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                animate: '',
+                calculate:0, 
+                popup1:false,
+                popup2:false,
+                page: window.common.getStorage('page'),
+                mySwiper:'',
+                activeNum:0,
+                analysis:false,
+                answerArray: [
+                    {
+                        title: '以下哪种茶不属于中国传统六大茶类',
+                        oa: [
+                            oa1='',
+                        ],
+                        name: 'A1',
+                        option1: '绿茶',
+                        option2: '黑茶',
+                        option3: '红茶',
+                        option4: '奶茶',
+                        rightOption:'奶茶',//正确答案属性
+                        disabled:false,//input点击锁
+                        analysis:'D．中国传统六大茶类是指红茶、黑茶、绿茶、白茶、青茶与黄茶。'//答案解析
+                    },
+                    {
+                        title: '茶文化的发源地是以下哪个国家',
+                        oa: [
+                            oa2 = '',
+                        ],
+                        name: 'B1',
+                        option1: '中国',
+                        option2: '日本',
+                        option3: '印度',
+                        option4: '斯里兰卡',
+                        rightOption:'中国',
+                        disabled: false,//input点击锁
+                        analysis:'A．中国是茶的故乡，中国茶文化反映出中华民族的悠久的文明和礼仪。'
+                    },
+                    {
+                        title: '龙井茶产自中国哪个湖泊？',
+                        oa: [
+                            oa3 = '',
+                        ],
+                        name: 'C1',
+                        option1: '西湖',
+                        option2: '太湖',
+                        option3: '洞庭湖',
+                        option4: '鄱阳湖',
+                        rightOption:'西湖',
+                        disabled: false,//input点击锁
+                        analysis:'A．龙井是中华传统名茶，产于浙江杭州西湖一带，由古代茶农创制于宋代，已有一千二百余年历史。'
+                    },
+                    {
+                        title: '以下哪个选项不是茶名称？',
+                        oa: [
+                            oa4 = '',
+                        ],
+                        name: 'D1',
+                        option1: '大红袍',
+                        option2: '铁观音',
+                        option3: '赤霞珠',
+                        option4: '太平猴魁',
+                        rightOption:'赤霞珠',
+                        disabled: false,//input点击锁
+                        analysis: 'C．大红袍、铁观音、太平猴魁皆为中国名茶。赤霞珠是葡萄品种名，多用于酿造葡萄酒。'
+                    },
+                    {
+                        title: '2017年，每公斤拍出32万元天价的是哪种茶',
+                        oa: [
+                            oa5 = '',
+                        ],
+                        name: 'E1',
+                        option1: '茉莉花茶',
+                        option2: '老班章茶树王',
+                        option3: '喜茶',
+                        option4: '阿萨姆奶茶',
+                        rightOption: '老班章茶树王',
+                        disabled: false,//input点击锁
+                        analysis: 'B．2017年春茶时节，老班章茶王树拍卖“32万”的事件引爆茶圈。该事件获得各方瞩目的同时，也受到了一些质疑。'
+                    },
+                    {
+                        title: '一般情况下，以下哪种茶经常做成茶饼储存、销售',
+                        oa: [
+                            oa6 = '',
+                        ],
+                        name: 'F1',
+                        option1: '西湖龙井',
+                        option2: '铁观音',
+                        option3: '金骏眉',
+                        option4: '云南普洱',
+                        rightOption: '云南普洱',
+                        disabled: false,//input点击锁
+                        analysis: 'D．普洱茶在一般情况下会被加工成茶饼。相比散茶，茶饼更易保存、收藏。'
+                    },
+                    {
+                        title: '茶圣陆羽生活在哪个时期',
+                        oa: [
+                            oa7 = '',
+                        ],
+                        name: 'F1',
+                        option1: '战国',
+                        option2: '西汉',
+                        option3: '唐代',
+                        option4: '北宋',
+                        rightOption: '唐代',
+                        disabled: false,//input点击锁
+                        analysis: 'C．陆羽字鸿渐，是唐代著名的茶学家，被尊为“茶圣”。陆羽一生嗜茶，精于茶道，以著世界第一部茶叶专著——《茶经》而闻名于世。'
+                    },
+                    {
+                        title: '话剧《茶馆》的作者是',
+                        oa: [
+                            oa8 = '',
+                        ],
+                        name: 'G1',
+                        option1: '郭敬明',
+                        option2: '鲁迅',
+                        option3: '老舍',
+                        option4: '莫言',
+                        rightOption: '老舍',
+                        disabled: false,//input点击锁
+                        analysis: 'C．《茶馆》是现代文学家老舍于1956年创作的话剧。剧作展示了戊戌变法、军阀混战和新中国成立前夕三个时代近半个世纪的社会风云变化。'
+                    },
+                    {
+                        title: '在金庸《天龙八部》里，鸠摩智等人因见识短浅而不敢喝哪种茶',
+                        oa: [
+                            oa9 = '',
+                        ],
+                        name: 'H1',
+                        option1: '普洱',
+                        option2: '君山银针',
+                        option3: '铁观音',
+                        option4: '碧螺春',
+                        rightOption: '碧螺春',
+                        disabled: false,//input点击锁
+                        analysis: 'D．原文写到：“段誉从未见过，喝了一口，只觉满嘴清香，舌底生津。鸠摩智和崔、过二人见茶叶古怪，都不敢喝……鸠摩智向在西域和吐蕃山地居住，喝惯了苦涩的黑色茶砖，见到这等碧绿有毛的茶叶，不免疑心有毒。'
+                    },
+                    {
+                        title: '“时尚的古老茶道”是以下哪个品牌的宣传语',
+                        oa: [
+                            oa10 = '',
+                        ],
+                        name: 'I1',
+                        option1: '小罐茶',
+                        option2: '叶小茶',
+                        option3: '立顿',
+                        option4: '喜茶',
+                        rightOption: '叶小茶',
+                        disabled: false,//input点击锁
+                        analysis: 'B．拾鼎公司荣誉产品“叶小茶”以“时尚的古老茶道”为精神内核，将文化素养与现代性融会贯通，强调茶道经典、古人智慧和现代审美的三位一体。叶小茶以包装个性化和消费合理化为自身市场定位，在千篇一律的茶市场中，凸显自身格调。'
+                    },
+                ]
+            };
+        },
+        created() {
+            this.analysis0 = 0;
+            this.analysis1 = 0;
+            this.analysis2 = 0;
+            this.analysis3 = 0;
+            this.analysis4 = 0;
+            this.analysis5 = 0;
+            this.analysis6 = 0;
+            this.analysis7 = 0;
+            this.analysis8 = 0;
+            this.analysis9 = 0;
+            // 获取openid
+            var that = this;
+            var url = window.common.GetRequest(window.location.search)
+            var openid = url.openid
+            console.log(openid)
+            // window.http.post('index/index/answer_confirm', {
+            //     openid: openid
+            // }, function (res) {
+            //     console.log(res)
+            //     if (res.body.answer == 1) {
+            //         window.location.href = '/index/index/reward?openid=' + openid
+            //         that.prize = false;
+            //         window.common.setStorage('prize', this.prize);
+            //     } else if (res.body.answer == 0) {
+
+            //         if (that.page) {
+            //             window.location.href = '/index/index/reward?openid=' + openid
+            //         } else {
+            //             that.next = 0;
+            //         }
+            //     }
+            // })
+        },
+        mounted() {
+             this.mySwiper = new Swiper('.swiper-container', {
+                direction: 'horizontal',
+                loop: false,
+                allowSwipeToNext:true,
+                onSlideChangeEnd:function (swiper) {
+                    this.activeNum = swiper.activeIndex;
+                }
+            })        
+        },
+        methods: {
+            swipeTo(){
+
+            },
+            nextChoice(e) {
+                var that = this;
+                var activeIndex = that.mySwiper.activeIndex;
+                if(activeIndex==0){
+                    that.answerArray[activeIndex].disabled=true;
+                    var num = window.common.selectAnswer(e, 0, activeIndex,'奶茶', that.answerArray);
+                    if(num==-1){
+                        that.analysis0=-1;
+                        // that.analysis=true
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }else{
+                        that.calculate +=1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                       
+                    }
+                }
+                if(activeIndex==1){
+                    that.answerArray[activeIndex].disabled = true;
+                    var num = window.common.selectAnswer(e, 1, activeIndex, '中国', that.answerArray);
+                    if(num==-1){
+                        that.analysis1 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    }else{
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                if (activeIndex == 2) {
+                    that.answerArray[activeIndex].disabled = true;
+                    var num = window.common.selectAnswer(e, 2, activeIndex,'西湖', that.answerArray);
+                    if(num == -1){
+                        that.analysis2 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    }else{
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                if (activeIndex == 3) {
+                    that.answerArray[activeIndex].disabled = true;
+                    var num = window.common.selectAnswer(e, 3, activeIndex,'赤霞珠', that.answerArray);
+                    if(num == -1){
+                        that.analysis3 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    }else{
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                if (activeIndex == 4) {
+                    that.answerArray[activeIndex].disabled = true;
+                    var num = window.common.selectAnswer(e, 4, activeIndex,'老班章茶树王', that.answerArray);
+                    if(num == -1){
+                        that.analysis4 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    }else{
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                if (activeIndex == 5) {
+                    that.answerArray[activeIndex].disabled = true;
+                    var num = window.common.selectAnswer(e, 5, activeIndex, '云南普洱', that.answerArray);
+                    if (num == -1) {
+                        that.analysis5 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    } else {
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                if (activeIndex == 6) {
+                    that.answerArray[activeIndex].disabled = true;
+                    var num = window.common.selectAnswer(e, 6, activeIndex, '唐代', that.answerArray);
+                    if (num == -1) {
+                        that.analysis6 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    } else {
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                if (activeIndex == 7) {
+                    that.answerArray[activeIndex].disabled = true;
+                    var num = window.common.selectAnswer(e, 7, activeIndex, '老舍', that.answerArray);
+                    if (num == -1) {
+                        that.analysis7 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    } else {
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                if (activeIndex == 8) {
+
+                    that.answerArray[activeIndex].disabled = true;
+
+                    var num = window.common.selectAnswer(e, 8, activeIndex, '碧螺春', that.answerArray);
+                    if (num == -1) {
+                        that.analysis8 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    } else {
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                if (activeIndex == 9) {
+
+                    that.answerArray[activeIndex].disabled = true;
+
+                    var num = window.common.selectAnswer(e, 9, activeIndex, '叶小茶', that.answerArray);
+                    if (num == -1) {
+                        that.analysis9 = -1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1500);
+                    } else {
+                        that.calculate += 1;
+                        setTimeout(() => {
+                            that.mySwiper.slideNext();
+                        }, 1000);
+                    }
+                    that.verification();
+                }
+                console.log(that.calculate,'that.calculate');
+            },
+            verification(){
+                var that=this;
+                //判断用户是否答完十道题
+                var notSelect = that.answerArray.filter(function (item) {
+                    return item.disabled === false
+                })
+                if (notSelect.length > 0) {
+                    console.log('您还有未答完的题');
+                } else {
+                    console.log('恭喜你全部答完十道题');
+                    if (that.calculate > 5) {
+                        setTimeout(() => {
+                            that.popup1 = true;
+                        }, 1000);
+                    } else {
+                        setTimeout(() => {
+                            that.popup2 = true;
+                        }, 1000);
+                    }
+                }
+            },
+            sure(e) {
+                if (e == 1) {
+                    var that = this;
+                    that.page = true;
+                    window.common.setStorage('page', that.page);
+                    // 获取openid
+                    var url = window.common.GetRequest(window.location.search)
+                    var openid = url.openid
+                    that.animate = 10;
+                    setTimeout(function () {
+                        that.animate = '';
+                        that.popup = false;
+                        // window.location.href = '/index/index/reward?openid=' + openid
+                    }, 100)
+
+                } else if (e == 6) {
+                    var that = this;
+                    that.animate = 12;
+                    setTimeout(function () {
+                        that.animate = '';
+                        that.next = 6;
+                        that.prize = false;
+                        window.common.setStorage('next', that.next);
+                        window.common.setStorage('prize', that.prize);
+                    }, 100)
+                    console.log('bbb')
+
+                }
+            },
+            cancle(index) {
+                if(index==1){
+                    this.popup1 = false;
+                }
+                if(index==2){
+                    this.popup2 = false;
+                }
+            },
+            carry(){
+                window.location.reload();
+                console.log('bbb');
+            }
+        }
+    })
+</script>
+
+</html>
