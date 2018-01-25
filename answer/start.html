@@ -1,91 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="__STATIC__/css/answer_css/reset.css">
+    <link rel="stylesheet" href="__STATIC__/css/answer_css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="__STATIC__/css/Component.css">
     <script language="JavaScript"> if (document.all) { window.resizeTo(screen.availWidth, screen.availHeight); } </script>
     <script type="text/javascript">        !function (a) { function b() { var b = a.document, c = b.documentElement, d = c.getBoundingClientRect().width; document.documentElement.style.fontSize = 20 * (d / 375) + "px" } window.addEventListener("DOMContentLoaded", function () { b() }, !1), window.addEventListener("resize", function () { b() }), b() }(window);    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Document</title>
+    <link rel="stylesheet" href="__STATIC__/css/Component.css">
+    <link rel="stylesheet" href="__STATIC__/css/pure/base-min.css">
+    <link rel="stylesheet" href="__STATIC__/css/pure/pure-min.css">
+    <title>答题闯关</title>
     <style lang="css">
-    body,
-    html {
-        width: 100%;
-        height: 100%;
-        font-size: 20px;
-    }
-    .cantain{
-        width:100%;
-        height:100%;
-    }
-    .cantainer {
-        width: 100%;
-        height: 100%;
-        background: url('./images/bg@1x.png') center;
-        background-repeat: no-repeat;
-        -webkit-background-size: 100% 100%;
-        background-size: cover;
-        position: relative;
-    }
-    .answer_start {
-        width:10.15rem;
-        height: 3rem;
-        position: absolute;
-        bottom: 2.275rem;
-        left: 4.65rem;
-    }
-    .cantainer-wrapper{
-        width:14.175rem;
-        height:25.825rem;
-    }
-    .dati{
-        width:13.375rem;
-        height:3.35rem;
-        position: absolute;
-        bottom:24.55rem;
-        left:3.375rem;
-    }
-    .lingquan{
-        width:13.05rem;
-        height:2.4rem;
-        position: absolute;
-        bottom:20.225rem;
-        left:3.35rem;
-    }
-    .yexiaocha{
-        width:14.2rem;
-        height:11.4rem;
-        position: absolute;
-        bottom: 6.675rem;
-        left:2.675rem;
-    }
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            font-size: 20px;
+        }
+
+        .cantain {
+            width: 100%;
+            height: 100%;
+        }
+
+        .cantainer {
+            width: 100%;
+            height: 100%;
+            background: url('__STATIC__/img/answer_img/bg@1x.png') center;
+            background-repeat: no-repeat;
+            -webkit-background-size: 100% 100%;
+            background-size: cover;
+            position: relative;
+        }
+
+        .answer_start {
+            width: 10.55rem;
+            height: 3rem;
+            position: absolute;
+            bottom: 2.275rem;
+            left: 4.65rem;
+        }
+
+        .cantainer-wrapper {
+            width: 14.175rem;
+            height: 25.825rem;
+        }
+
+        .dati {
+            width: 13.25rem;
+            height: 3.35rem;
+            position: absolute;
+            bottom: 24.55rem;
+            left: 3.375rem;
+        }
+
+        .lingquan {
+            width: 14.35rem;
+            height: 2.375rem;
+            position: absolute;
+            bottom: 20.225rem;
+            left: 3.35rem;
+        }
+
+        .yexiaocha {
+            width: 14.2rem;
+            height: 11.5rem;
+            position: absolute;
+            bottom: 6.675rem;
+            left: 2.675rem;
+        }
+        .animate{
+            opacity: 0.6;
+        }
     </style>
 </head>
+
 <body>
     <div class="cantain" id="app">
         <div class="cantainer">
             <div class="cantainer-wrapper">
-                <img src="./images/dati.png" alt="" class="dati">
-                <img src="./images/lingquan.png" alt="" class="lingquan">
-                <img src="./images/yexiaocha.png" alt="" class="yexiaocha">
-                <img class="answer_start" id="answer_start" @click="answerStart()" :class="{interactive:animate==1}" src="./images/start@1x.png"
-                />
+                <img src="__STATIC__/img/answer_img/dati.png" alt="" class="dati">
+                <img src="__STATIC__/img/answer_img/lingquan.png" alt="" class="lingquan">
+                <img src="__STATIC__/img/answer_img/yexiaocha.png" alt="" class="yexiaocha">
+                <img class="answer_start" id="answer_start" @click="answerStart()" src="__STATIC__/img/answer_img/start@1x.png" :class="{animate:animate}"/>
             </div>
         </div>
     </div>
 </body>
-<script src="./js/vue.js"></script>
+<script src="__STATIC__/js/answer_js/vue.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery-3.2.1.min.js"></script>
+<script src="__STATIC__/js/answer_js/vue-resource.js"></script>
+<script src="__STATIC__/js/answer_js/api.js"></script>
+<!-- <script src="__STATIC__/js/answer_js/common.js"></script> -->
+<script type="text/javascript" src="__STATIC__/js/common.js"></script>
+<script type="text/javascript" src="__STATIC__/js/validate.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/Component.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
     var vm = new Vue({
-        el:'#app',
-        methods:{
-            answerStart(){
-                window.location.href="./index.html"
+        el: '#app',
+        data: function () {
+            return {
+                animate:false,
+                token: '',
+                userid: '',
+                promote_goods_id:1,
+                bind_mobile:'',//绑定手机号
+                //微信三方登录所需信息
+                appid: 'wx4c0d99f03fff4999',
+                redirect_uri: 'http://shidingtea.com/mobile/goods/wxRedirecturi3',
+            }
+        },
+        created:function() {
+            this.load();
+        },
+        methods: {
+            load: function () {
+                var that = this;
+                var wxUserinfo = JSON.parse(window.common.getQueryString('wxUserinfo'));
+                var token = window.common.getuser();
+                var userid = window.common.getinfo('userid');
+                that.token = token;
+                that.userid = userid;
+                console.log(that.userid,'that.userid');
+                //判断是否登录或注册
+                if (token !== null) {
+                    console.log('token');
+                    $.ajax({
+                        url: '/appc/goods/goods_info',
+                        data: {
+                            user_id: that.userid,
+                            apptoken: that.token,
+                            ide: 'c',
+                            goods_id: that.promote_goods_id
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (res) {
+                            console.log(res);
+                            if (res.status == 9) {
+                                window.common.removeuser();
+                                that.login_weixin();
+                            } else {
+                                // alert(msg);
+                            }
+                        }
+                    });
+                } else {
+                    if (wxUserinfo !== null) {
+                        // console.log('有wx信息');
+                        $.ajax({
+                            url: '/appc/login/thirdlogincheck',
+                            data: {
+                                oauth: 'wx',
+                                unionid: wxUserinfo.unionid
+                            },
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (res) {
+                                // console.log(res);
+                                if (res.status == 0) {
+                                    // alert('登录，没绑手机号');
+                                    // console.log(wxUserinfo,'微信信息');
+                                    vm.$bind_tel(wxUserinfo, '/mobile/goods/answer_start');
+                                } else if (res.status == 1) {
+                                    // alert('登录，已绑手机号');
+                                    if (res.userinfo.openid === 1) {
+                                        $.ajax({
+                                            url: '/mobile/Login/savesession',
+                                            data: {
+                                                userid: res.userinfo.userid
+                                            },
+                                            type: 'POST',
+                                            dataType: 'json',
+                                            success: function (res2) {
+                                                // console.log(res2);
+                                                if (res2 == 1) {
+                                                    window.common.setuser(res.token);
+                                                    window.common.setinfo('mobile', that.bind_mobile);
+                                                    window.common.setinfo('userid', res.userinfo.userid);
+                                                    window.location.replace('/mobile/goods/answer_start');
+                                                } else {
+                                                    alert('session存储错误，请检查服务器');
+                                                }
+                                            }
+                                        })
+                                    } else if (res.userinfo.openid === 0) {
+                                        that.thirdLogin('wx', wxUserinfo.openid, wxUserinfo.unionid, wxUserinfo.nickname, res.mobile, 'bindopenid');
+                                    }
+                                }
+                            }
+                        })
+                    } else {
+                        that.login_weixin();
+                    }
+                }
+            },
+            login_weixin: function () {
+                window.location.replace('https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + this.appid + '&redirect_uri=' + encodeURIComponent(this.redirect_uri) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
+            },
+            thirdLogin: function (oauth, openid, unionid, nickname, mobile, code) {
+                $.ajax({
+                    url: '/appc/login/thirdlogin',
+                    data: {
+                        oauth: oauth,
+                        openid: openid,
+                        unionid: unionid,
+                        nickname: nickname,
+                        mobile: mobile,
+                        code: code
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        if (res.status == 1) {
+                            $.ajax({
+                                url: '/mobile/Login/savesession',
+                                data: {
+                                    userid: res.userinfo.userid
+                                },
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (r) {
+                                    if (r == 1) {
+                                        window.common.setuser(res.token);
+                                        window.common.setinfo('userid', res.userinfo.userid);
+                                        window.location.replace("/mobile/goods/me_spa");
+                                    }
+                                    else {
+                                        alert('session存储错误，请检查服务器');
+                                    }
+                                }
+                            })
+                        } else {
+
+                        }
+                    }
+                })
+            },
+            answerStart: function () {
+                var that=this;
+                that.animate = true;
+                setTimeout(() => {
+                    that.animate = false;
+                    window.location.href = "/mobile/goods/answer_index?user_id=" + that.userid
+                }, 100);
+               
             }
         }
     })
 </script>
+
 </html>
